@@ -1,27 +1,48 @@
 Set objFSO = CreateObject("Scripting.FileSystemObject")
 call ClearScreen
 
+Wscript.Echo "      ____              __        "
+Wscript.Echo "     / __ \   ____ _   / /      ___ "
+Wscript.Echo "    / / / /  / __ `/  / /      / _ \"
+Wscript.Echo "   / /_/ /  / /_/ /  / /___   /  __/"
+Wscript.Echo "  /_____/   \__,_/  /_____/   \___/ "
+Wscript.Echo ""
+Wscript.Echo "           +-+-+-+-+-+-+-+-+"
+Wscript.Echo "           |t|e|r|m|i|n|a|l|"
+Wscript.Echo "           +-+-+-+-+-+-+-+-+"
+Wscript.Echo ""
+Wscript.Echo " ^> Name : CleanUp Files.vbs"
+Wscript.Echo " ^> Description : trying to create some order in"
+Wscript.Echo " ^>               chaos"
+Wscript.Echo " ^> Author : David Lejeune"
+Wscript.Echo " ^> Created : 10-07-15 13:50"
+Wscript.Echo ""
+Wscript.Echo " #####################################################"
+Wscript.Echo " #               RUNNING VBS SCRIPT                  #"
+Wscript.Echo " #                                                   #"
+Wscript.Echo " #####################################################"
+Wscript.Echo ""
+iTotal = 0
+
+
 'This is the folder where all your shit will be moved to in an orderly fashion
-objTargetFolder = "C:\Users\David\Desktop\DaLe\File Hub\"
+filename = "target_folder.txt"
+Set f = objFSO.OpenTextFile(filename,1)
+strLine = f.ReadLine
+objTargetFolder = strLine
+f.Close
+objTargetFolder = strLine
 
 
-'For each folder (subfolders not included) change the folder name and call the main function
-'Can be repeated for as many folders as you want
-objStartFolder = "C:\Users\David\Downloads\"
-call Main
-
-
-
-
-objStartFolder = "C:\Users\David\Desktop\DaLe\File Hub\"
-call Main
-
-
-
-objStartFolder = "C:\Users\David\Desktop\DaLe\"
-call Main
-
-
+'For each folder (subfolders not included) file will be moved to target folder
+filename = "cleanup_folders.txt"
+Set f = objFSO.OpenTextFile(filename,1)
+Do Until f.AtEndOfStream
+  strLine = f.ReadLine
+  objStartFolder = strLine
+  call Main
+Loop
+f.Close
 
 Wscript.Echo ""
 Wscript.Echo " #####################################################"
@@ -49,30 +70,7 @@ Wscript.Echo ""
 
 Sub Main()
 
-Wscript.Echo "      ____              __        "  
-Wscript.Echo "     / __ \   ____ _   / /      ___ "
-Wscript.Echo "    / / / /  / __ `/  / /      / _ \"
-Wscript.Echo "   / /_/ /  / /_/ /  / /___   /  __/"
-Wscript.Echo "  /_____/   \__,_/  /_____/   \___/ "
-Wscript.Echo ""
-Wscript.Echo "           +-+-+-+-+-+-+-+-+"
-Wscript.Echo "           |t|e|r|m|i|n|a|l|"
-Wscript.Echo "           +-+-+-+-+-+-+-+-+"
-Wscript.Echo ""
-Wscript.Echo " ^> Name : CleanUp Files.vbs"
-Wscript.Echo " ^> Description : trying to create some order in"
-Wscript.Echo " ^>               chaos"
-Wscript.Echo " ^> Author : David Lejeune"
-Wscript.Echo " ^> Created : 10-07-15 13:50"
-Wscript.Echo ""
-Wscript.Echo " #####################################################"
-Wscript.Echo " #               RUNNING VBS SCRIPT                  #"
-Wscript.Echo " #                                                   #"
-Wscript.Echo " #####################################################"
-Wscript.Echo " Target : " & objStartFolder
-Wscript.Echo ""
-Wscript.Sleep 2000
-iTotal = 0
+
 
 iNew = 0
 iCount = 0
@@ -96,7 +94,7 @@ For Each objFile in colFiles
             sType = Ucase( Mid(sType,instrRev(sType,".")+1))
         End If
     End If
-   
+
 
     sDestinationFolder = objTargetFolder + sType + "\"
     'Wscript.echo sDestinationFolder
@@ -121,10 +119,10 @@ For Each objFile in colFiles
     End If
 
     objFSO.MoveFile objFile.Path , sDestinationFolder & sName
-    Wscript.Echo "[" & sType & "]" & vbTab & sName 
+    Wscript.Echo "[" & sType & "]" & vbTab & sName
 
-    
-    
+
+
 Next
 
 
