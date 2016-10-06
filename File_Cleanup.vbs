@@ -79,6 +79,10 @@ Set objFolder = objFSO.GetFolder(objStartFolder)
 Set colFiles = objFolder.Files
 sDelete = 0
 
+
+Wscript.Echo ""
+Wscript.Echo "Folder : " & objStartFolder
+
 For Each objFile in colFiles
 
     strinput = objFile.Name
@@ -126,7 +130,7 @@ For Each objFile in colFiles
 Next
 
 
-Wscript.Echo vbCrlf & "Folder : " & objStartFolder & vbCrlf & "Created " & iNew & " new Type Folder(s)" & vbCrlf & "Moved " & sDelete & " duplicate file(s)" & vbCrlf & "Moved " & iCount & " new file(s)"
+Wscript.Echo "Created " & iNew & " new Type Folder(s)" & vbCrlf & "Moved " & sDelete & " duplicate file(s)" & vbCrlf & "Moved " & iCount & " new file(s)"
 Wscript.Sleep 3500
 
 
